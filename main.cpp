@@ -13,7 +13,7 @@
 
 int main() {
 	
-	sf::RenderWindow window(sf::VideoMode({800, 600}), "My Game");
+	sf::RenderWindow window(sf::VideoMode({800, 640}), "My Game");
 	window.setFramerateLimit(60);
 	
 	sf::Texture playerTexture;
@@ -30,16 +30,10 @@ int main() {
 		std::cout << "enemy texture loaded\n";
 	}
 
-	sf::Texture mapTexture;
-	if (!mapTexture.loadFromFile("/home/A/docs/game_dev/skeletons_vs_humans/assets/tiles/tiles.png", false, sf::IntRect({32, 0}, {32, 32}))) {
-		std::cout << "unable to load map\n";
-	} else {
-		std::cout << "map loaded\n";
-	}
-
+	
 	Player player(playerTexture);
 	Enemy enemy(enemyTexture);
-	Map map(mapTexture);
+	Map map;
 
 	Bullets bulletObj;
 	bulletObj.setSpeed(1.0f);
@@ -48,6 +42,31 @@ int main() {
 	sf::Clock clock;
 
 	Fps fpshow("/home/A/docs/game_dev/skeletons_vs_humans/assets/fonts/EvilEmpire-lx5R0.ttf"); 
+
+	constexpr std::array tiles = {
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+    0,1,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,1,0,
+    0,1,0,2,2,0,3,3,0,0,0,0,0,0,0,3,3,0,2,2,0,0,0,1,0,
+    0,1,0,0,0,0,3,3,0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,1,0,
+    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+    0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	};
+	
+	map.load("/home/A/docs/game_dev/skeletons_vs_humans/assets/tiles/tiles.png", {32, 32}, tiles.data(), 25, 20);
 
 	while (window.isOpen()) {	
 
