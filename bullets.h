@@ -4,16 +4,24 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+struct Bullet {
+	
+	Bullet(float speed) {};
+	
+	float bulletSpeed {1.0f};
+	sf::Vector2f bulletDirection {};
+	sf::RectangleShape bulletShape {sf::Vector2f({10.0f, 10.f})};
+};
+
 class Enemy;
 class Player;
 
-class Bullets {
+class BulletsManager {
 	public:
 
 		void update(const Player& player, const Enemy& enemy, float deltaTime, sf::Vector2i& mousePosition);
 		void draw(sf::RenderWindow& window);
 
-		void setSpeed(float speed);
 		void setFireRate(float rate);
 		void setFireRateTimer(float timer);
 		float getFireRateTimer();
@@ -24,11 +32,7 @@ class Bullets {
 		
 		float maxFireRate {};
 		float fireRateTimer {0.0f};
-		std::vector<sf::RectangleShape> bulletsVec {};
-		float bulletSpeed {};
-
-		sf::Vector2f bulletDirection;
-		// this doesnt work, will need another class to represent a bullet
+		std::vector<Bullet> bulletsVec {};
 
 };
 

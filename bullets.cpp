@@ -4,13 +4,13 @@
 #include "enemy.h"
 #include <iostream>
 
-void Bullets::update(const Player& player, const Enemy& enemy, float deltaTime, sf::Vector2i& mousePosition) {
+void BulletsManager::update(const Player& player, const Enemy& enemy, float deltaTime, sf::Vector2i& mousePosition) {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && fireRateTimer > maxFireRate)  {
-		bulletsVec.push_back(sf::RectangleShape(sf::Vector2f({10.0f, 10.0f})));
+		bulletsVec.push_back(Bullet(1.0f));
 		int index = bulletsVec.size() - 1;
-		bulletsVec[index].setPosition(player.getSprite().getPosition());
+		bulletsVec[index].bulletShape.setPosition(player.getSprite().getPosition());
 
-		bulletDirection = sf::Vector2f(mousePosition) - bulletsVec[index].getPosition();
+		bulletsVec[index].bulletDirection = sf::Vector2f(mousePosition) - bulletsVec[index].bulletShape.getPosition();
 		
 		fireRateTimer = 0;
 
@@ -19,17 +19,17 @@ void Bullets::update(const Player& player, const Enemy& enemy, float deltaTime, 
 	if (!bulletsVec.empty()) {
 		for (int i = bulletsVec.size() - 1; i >= 0; i--) {
 			
-			bulletDirection = Math::normalizeVector(bulletDirection);
+			bulletsVec[i].bulletDirection = Math::normalizeVector(bulletsVec[i].bulletDirection);
 			
-			sf::Vector2f curPos = bulletsVec[i].getPosition();
-			bulletsVec[i].setPosition(curPos + bulletDirection * bulletSpeed * deltaTime);
+			sf::Vector2f curPos = bulletsVec[i].bulletShape.getPosition();
+			bulletsVec[i].bulletShape.setPosition(curPos + bulletsVec[i].bulletDirection * bulletsVec[i].bulletSpeed * deltaTime);
 
 		}
 	}
 	
 }
 
-void Bullets::bulletEnemyCollision(Enemy& enemy) {
+void BulletsManager::bulletEnemyCollision(Enemy& enemy) {
 
 	if (enemy.getHealth() <= 0) {
 		return;
@@ -40,7 +40,7 @@ void Bullets::bulletEnemyCollision(Enemy& enemy) {
 	}
 
 	for (int i = bulletsVec.size() - 1; i >= 0; i--) {
-		if (Math::checkCollision(bulletsVec[i].getGlobalBounds(), enemy.getSprite().getGlobalBounds())) {
+		if (Math::checkCollision(bulletsVec[i].bulletShape.getGlobalBounds(), enemy.getSprite().getGlobalBounds())) {
 			bulletsVec.erase(bulletsVec.begin() + i);
 			enemy.setHealth(enemy.getHealth() - 5);
 
@@ -49,25 +49,20 @@ void Bullets::bulletEnemyCollision(Enemy& enemy) {
 	}
 }
 
-
-void Bullets::setSpeed(float speed) {
-	bulletSpeed = speed;
-}
-
-void Bullets::draw(sf::RenderWindow& window) {
+void BulletsManager::draw(sf::RenderWindow& window) {
 	for (size_t i = 0; i < bulletsVec.size(); i++) {
-		window.draw(bulletsVec[i]);
+		window.draw(bulletsVec[i].bulletShape);
 	}
 }
 
-void Bullets::setFireRate(float rate) {
+void BulletsManager::setFireRate(float rate) {
 	maxFireRate = rate;
 }
 
-float Bullets::getFireRateTimer() {
+float BulletsManager::getFireRateTimer() {
 	return fireRateTimer;
 }
 
-void Bullets::setFireRateTimer(float timer) {
+void BulletsManager::setFireRateTimer(float timer) {
 	fireRateTimer = timer; 
 }

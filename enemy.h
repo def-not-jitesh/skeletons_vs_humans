@@ -25,7 +25,7 @@ class Enemy {
 		const int getHealth();
 		void setHealth(int health);
 
-		friend void Bullets::update(const Player&, const Enemy&, float deltaTime, sf::Vector2i& mousePosition);
+		friend void BulletsManager::update(const Player&, const Enemy&, float deltaTime, sf::Vector2i& mousePosition);
 };
 
 #endif

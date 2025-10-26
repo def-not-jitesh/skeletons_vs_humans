@@ -21,7 +21,7 @@ class Player {
 		const sf::Sprite& getSprite() const;
 		sf::Sprite& getSprite();
 
-		friend void Bullets::update(const Player&, const Enemy&, float deltaTime, sf::Vector2i& mousePosition);
+		friend void BulletsManager::update(const Player&, const Enemy&, float deltaTime, sf::Vector2i& mousePosition);
 
 };
 

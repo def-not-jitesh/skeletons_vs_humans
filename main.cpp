@@ -17,14 +17,14 @@ int main() {
 	window.setFramerateLimit(60);
 	
 	sf::Texture playerTexture;
-	if (!playerTexture.loadFromFile("/home/A/docs/game_dev/textures/lpc_entry/png/walkcycle/BODY_skeleton.png", false, sf::IntRect({0, 128}, {64, 64}))) {
+	if (!playerTexture.loadFromFile("/home/A/docs/game_dev/skeletons_vs_humans/assets/lpc_entry/png/walkcycle/BODY_skeleton.png", false, sf::IntRect({0, 128}, {64, 64}))) {
 		std::cout << "unable to load player texture\n";
 	} else {
 		std::cout << "player texture loaded\n";
 	}
 
 	sf::Texture enemyTexture;
-	if (!enemyTexture.loadFromFile("/home/A/docs/game_dev/textures/lpc_entry/png/walkcycle/BODY_male.png", false, sf::IntRect({0, 128}, {64, 64}))) {
+	if (!enemyTexture.loadFromFile("/home/A/docs/game_dev/skeletons_vs_humans/assets/lpc_entry/png/walkcycle/BODY_male.png", false, sf::IntRect({0, 128}, {64, 64}))) {
 		std::cout << "unable to load enemy texture\n";
 	} else {
 		std::cout << "enemy texture loaded\n";
@@ -35,9 +35,8 @@ int main() {
 	Enemy enemy(enemyTexture);
 	Map map;
 
-	Bullets bulletObj;
-	bulletObj.setSpeed(1.0f);
-	bulletObj.setFireRate(200.0f);
+	BulletsManager bullets;
+	bullets.setFireRate(200.0f);
 
 	sf::Clock clock;
 
@@ -82,13 +81,13 @@ int main() {
 		fpshow.update(deltaTime);
 		player.update(deltaTime);
 		
-		bulletObj.setFireRateTimer(bulletObj.getFireRateTimer() + deltaTime);
+		bullets.setFireRateTimer(bullets.getFireRateTimer() + deltaTime);
 
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window); // should get mousePosition only once every frame 
 
-		bulletObj.update(player, enemy, deltaTime, mousePos);
+		bullets.update(player, enemy, deltaTime, mousePos);
 
-		bulletObj.bulletEnemyCollision(enemy);
+		bullets.bulletEnemyCollision(enemy);
 
 		if (enemy.getHealth() > 9) {
 			if (Math::checkCollision(player.getSprite().getGlobalBounds(), enemy.getSprite().getGlobalBounds())) 
@@ -105,7 +104,7 @@ int main() {
 
 		fpshow.draw(window);
 
-		bulletObj.draw(window);
+		bullets.draw(window);
 		
 		window.display();
 	}	
