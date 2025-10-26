@@ -17,14 +17,14 @@ int main() {
 	window.setFramerateLimit(60);
 	
 	sf::Texture playerTexture;
-	if (!playerTexture.loadFromFile("/home/A/docs/game_dev/skeletons_vs_humans/assets/lpc_entry/png/walkcycle/BODY_skeleton.png")) {
+	if (!playerTexture.loadFromFile("./assets/lpc_entry/png/walkcycle/BODY_skeleton.png")) {
 		std::cout << "unable to load player texture\n";
 	} else {
 		std::cout << "player texture loaded\n";
 	}
 
 	sf::Texture enemyTexture;
-	if (!enemyTexture.loadFromFile("/home/A/docs/game_dev/skeletons_vs_humans/assets/lpc_entry/png/walkcycle/BODY_male.png")) {
+	if (!enemyTexture.loadFromFile("./assets/lpc_entry/png/walkcycle/BODY_male.png")) {
 		std::cout << "unable to load enemy texture\n";
 	} else {
 		std::cout << "enemy texture loaded\n";
@@ -40,7 +40,7 @@ int main() {
 
 	sf::Clock clock;
 
-	Fps fpshow("/home/A/docs/game_dev/skeletons_vs_humans/assets/fonts/EvilEmpire-lx5R0.ttf"); 
+	Fps fpshow("./assets/fonts/EvilEmpire-lx5R0.ttf"); 
 
 	constexpr std::array tiles = {
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
