@@ -3,6 +3,7 @@
 
 Enemy::Enemy(const sf::Texture& text) : texture(text), sprite(texture) {
 	sprite.setPosition({400.0f, 300.0f});
+	sprite.setTextureRect(sf::IntRect({0, 0}, {64, 64}));
 
 	boundingRectangle.setFillColor(sf::Color::Transparent);
 	boundingRectangle.setOutlineColor(sf::Color::Red);

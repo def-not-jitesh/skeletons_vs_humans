@@ -17,14 +17,14 @@ int main() {
 	window.setFramerateLimit(60);
 	
 	sf::Texture playerTexture;
-	if (!playerTexture.loadFromFile("/home/A/docs/game_dev/skeletons_vs_humans/assets/lpc_entry/png/walkcycle/BODY_skeleton.png", false, sf::IntRect({0, 128}, {64, 64}))) {
+	if (!playerTexture.loadFromFile("/home/A/docs/game_dev/skeletons_vs_humans/assets/lpc_entry/png/walkcycle/BODY_skeleton.png")) {
 		std::cout << "unable to load player texture\n";
 	} else {
 		std::cout << "player texture loaded\n";
 	}
 
 	sf::Texture enemyTexture;
-	if (!enemyTexture.loadFromFile("/home/A/docs/game_dev/skeletons_vs_humans/assets/lpc_entry/png/walkcycle/BODY_male.png", false, sf::IntRect({0, 128}, {64, 64}))) {
+	if (!enemyTexture.loadFromFile("/home/A/docs/game_dev/skeletons_vs_humans/assets/lpc_entry/png/walkcycle/BODY_male.png")) {
 		std::cout << "unable to load enemy texture\n";
 	} else {
 		std::cout << "enemy texture loaded\n";
@@ -79,6 +79,7 @@ int main() {
 		}
 		
 		fpshow.update(deltaTime);
+		
 		player.update(deltaTime);
 		
 		bullets.setFireRateTimer(bullets.getFireRateTimer() + deltaTime);

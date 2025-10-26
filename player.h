@@ -8,8 +8,14 @@
 
 class Player {
 	private:
-		sf::Texture texture;
 		sf::Sprite sprite;
+		float changeTimer {0.0f};
+		float maxChangeTime {0.1f};
+		int spriteIndex = 0;
+		int maxSpriteIndex = 8;
+		
+		float speed = 0.5;
+
 	public:
 		sf::RectangleShape boundingRectangle;
 
